@@ -1,3 +1,15 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+back.home:
+    path: /admin
+    controller: App\Controller\BackController::index
+
+back.new:
+    path: /new
+    controller: App\Controller\BackController::new
+
+back.modif:
+    path: /modif-{id}
+    controller: App\Controller\BackController::modif
