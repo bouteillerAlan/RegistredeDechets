@@ -19,25 +19,19 @@ class Emetteur
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\entreposage")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Entreprise")
      * @ORM\JoinColumn(nullable=false)
      */
     private $entreposage;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\transporteur")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Entreprise")
      * @ORM\JoinColumn(nullable=false)
      */
     private $transporteur;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\traitement", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $traitement;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\codedr")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CodeDr")
      * @ORM\JoinColumn(nullable=false)
      */
     private $code_dr;
@@ -77,43 +71,105 @@ class Emetteur
      */
     private $commentaire;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Entreprise")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $entreprise_traitement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Codedr")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $code_dr_traitement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ModeTraitement")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $mode_traitement;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_admission;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_traitement;
+
+    /**
+     * @param $date
+     * @return \DateTime
+     * @throws \Exception
+     */
+    private function DateTransform ($date) {
+        $d = new \DateTime ( \DateTime::createFromFormat('d/m/Y', $date)->format('Y-m-d H:i:s'));
+        return $d;
+    }
+
+    public function getDateEnlevement(): ?\DateTime
+    {
+        return $this->date_enlevement;
+    }
+
+    public function setDateEnlevement(string $date_enlevement): self
+    {
+        $this->date_enlevement = $this->DateTransform($date_enlevement);
+
+        return $this;
+    }
+
+    public function getDateAdmission(): ?\DateTime
+    {
+        return $this->date_admission;
+    }
+
+    public function setDateAdmission(string $date_admission): self
+    {
+        $this->date_admission = $this->DateTransform($date_admission);
+
+        return $this;
+    }
+
+    public function getDateTraitement(): ?\DateTime
+    {
+        return $this->date_traitement;
+    }
+
+    public function setDateTraitement(string $date_traitement): self
+    {
+        $this->date_traitement = $this->DateTransform($date_traitement);
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEntreposage(): ?entreposage
+    public function getEntreposage(): ?entreprise
     {
         return $this->entreposage;
     }
 
-    public function setEntreposage(?entreposage $entreposage): self
+    public function setEntreposage(?entreprise $entreposage): self
     {
         $this->entreposage = $entreposage;
 
         return $this;
     }
 
-    public function getTransporteur(): ?transporteur
+    public function getTransporteur(): ?entreprise
     {
         return $this->transporteur;
     }
 
-    public function setTransporteur(?transporteur $transporteur): self
+    public function setTransporteur(?entreprise $transporteur): self
     {
         $this->transporteur = $transporteur;
-
-        return $this;
-    }
-
-    public function getTraitement(): ?traitement
-    {
-        return $this->traitement;
-    }
-
-    public function setTraitement(traitement $traitement): self
-    {
-        $this->traitement = $traitement;
 
         return $this;
     }
@@ -150,18 +206,6 @@ class Emetteur
     public function setFichierBsd(string $fichier_bsd): self
     {
         $this->fichier_bsd = $fichier_bsd;
-
-        return $this;
-    }
-
-    public function getDateEnlevement(): ?\DateTimeInterface
-    {
-        return $this->date_enlevement;
-    }
-
-    public function setDateEnlevement(\DateTimeInterface $date_enlevement): self
-    {
-        $this->date_enlevement = $date_enlevement;
 
         return $this;
     }
@@ -213,4 +257,41 @@ class Emetteur
 
         return $this;
     }
+
+    public function getEntrepriseTraitement(): ?entreprise
+    {
+        return $this->entreprise_traitement;
+    }
+
+    public function setEntrepriseTraitement(?entreprise $entreprise): self
+    {
+        $this->entreprise_traitement = $entreprise;
+
+        return $this;
+    }
+
+    public function getCodeDrTraitement(): ?codedr
+    {
+        return $this->code_dr_traitement;
+    }
+
+    public function setCodeDrTraitement(?codedr $code_dr): self
+    {
+        $this->code_dr_traitement = $code_dr;
+
+        return $this;
+    }
+
+    public function getModeTraitement(): ?modetraitement
+    {
+        return $this->mode_traitement;
+    }
+
+    public function setModeTraitement(?modetraitement $mode_traitement): self
+    {
+        $this->mode_traitement = $mode_traitement;
+
+        return $this;
+    }
+
 }

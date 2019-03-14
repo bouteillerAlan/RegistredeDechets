@@ -1,15 +1,106 @@
+### REDIRECTION
 home:
     path: /
-    controller: App\Controller\HomeController::index
+    controller: App\Controller\AuthenticationController::indexRedirect
 
-back.home:
+### AUTHENTICATION
+login:
+    path: /login
+    controller: App\Controller\AuthenticationController::login
+
+logout:
+    path: /logout
+
+### BSD
+back:
     path: /admin
     controller: App\Controller\BackController::index
 
 back.new:
-    path: /new
+    path: /admin/bsd-new
     controller: App\Controller\BackController::new
 
-back.modif:
-    path: /modif-{id}
-    controller: App\Controller\BackController::modif
+back.edit:
+    path: /admin/bsd-edit-{id}
+    controller: App\Controller\BackController::edit
+
+back.delete:
+    path: /admin/bsd-delete-{id}
+    controller: App\Controller\BackController::delete
+
+### USER
+back.user :
+    path: /admin/utilisateur
+    controller: App\Controller\UserController::index
+
+back.user.new :
+    path: /admin/add-user
+    controller: App\Controller\UserController::new
+
+back.user.edit :
+    path: /admin/edit-user-{id}-{name}
+    controller: App\Controller\UserController::edit
+    methods: [GET, POST]
+
+back.user.delete :
+    path: /admin/delete-user-{id}-{name}
+    controller: App\Controller\UserController::delete
+    methods: [DELETE]
+
+### ENTREPRISE
+back.entre :
+    path: /admin/entreprise
+    controller: App\Controller\EntreController::index
+
+back.entre.new :
+    path: /admin/add-entreprise
+    controller: App\Controller\EntreController::new
+
+back.entre.edit :
+    path: /admin/edit-entreprise-{id}-{name}
+    controller: App\Controller\EntreController::edit
+    methods: [GET, POST]
+
+back.entre.delete :
+    path: /admin/delete-entreprise-{id}-{name}
+    controller: App\Controller\EntreController::delete
+    methods: [DELETE]
+
+### CODE D/R
+back.codedr :
+    path: /admin/codedr
+    controller: App\Controller\CodedrController::index
+
+back.codedr.new :
+    path: /admin/add-codedr
+    controller: App\Controller\CodedrController::new
+
+back.codedr.edit :
+    path: /admin/edit-codedr-{id}-{name}
+    controller: App\Controller\CodedrController::edit
+    methods: [GET, POST]
+
+back.codedr.delete :
+    path: /admin/delete-codedr-{id}-{name}
+    controller: App\Controller\CodedrController::delete
+    methods: [DELETE]
+
+
+### MODE TRAITEMENT
+back.mode :
+    path: /admin/mode
+    controller: App\Controller\ModeController::index
+
+back.mode.new :
+    path: /admin/add-mode
+    controller: App\Controller\ModeController::new
+
+back.mode.edit :
+    path: /admin/edit-mode-{id}-{name}
+    controller: App\Controller\ModeController::edit
+    methods: [GET, POST]
+
+back.mode.delete :
+    path: /admin/delete-mode-{id}-{name}
+    controller: App\Controller\ModeController::delete
+    methods: [DELETE]

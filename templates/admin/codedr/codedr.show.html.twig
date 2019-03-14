@@ -1,0 +1,46 @@
+{% extends 'admin/backhome.html.twig' %}
+
+{% block title %}Code D/R{% endblock %}
+
+{% block subcontent %}
+
+    <div class="container">
+        <div class="row">
+
+            <table class="highlight centered">
+                <thead>
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Type de code</th>
+                    <th>Code</th>
+                    <th>Commentaire</th>
+                    <th colspan="2"><a href="{{ path('back.codedr.new') }}" class="waves-effect waves-light btn"><i class="material-icons left">leak_add</i>Ajout d'un Code D/R</a></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for data in result %}
+                    <tr>
+                        <td>{{ data.id }}</td>
+                        <td>{{ data.type }}</td>
+                        <td>{{ data.code }}</td>
+                        <td>{{ data.commentaire }}</td>
+                        <td>
+                            <a href="{{ path('back.codedr.edit', {id: data.id, name: data.code}) }}" class="waves-effect waves-light btn-small green">Modifier<i class="material-icons left">account_balance_wallet</i></a>
+                        </td>
+                        <td>
+                            <form method="post" action="{{ path('back.codedr.delete', {id: data.id, name: data.code}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer le code D/R {{data.code}}')">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete'~data.id) }}">
+                                <button class="btn waves-effect waves-light btn-small red">Supprimer<i class="material-icons left">backspace</i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}

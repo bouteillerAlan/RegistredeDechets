@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="container-fluid">
+            <div class="container">
+                <h2>Connection</h2>
+
+                <div class="col s12">
+                    <form action="{{ path('login') }}" method="post">
+
+                        <div class="input-field col m6 s12">
+                            <input id="username" type="text" class="validate {% if error %}invalid{% endif %}" name="_username" value="{{ lastUser }}" required="required">
+                            <label for="username">Username</label>
+                            <span class="helper-text" data-error="
+                            {% if error %}
+                                {{ error.messageKey | trans(error.messagedata, 'security') }}
+                            {% endif %}
+                        "></span>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <input id="password" type="password" class="validate {% if error %}invalid{% endif %}" name="_password" required="required">
+                            <label for="password">Password</label>
+                        </div>
+
+                        <div class="col s12 paramBlog">
+                            <div>
+                                <button class="btn waves-effect waves-light" type="submit">Me connecter
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css?family=Damion|Permanent+Marker|Roboto|Share+Tech|VT323|Barlow');
+/*font-family: 'Damion', cursive;*/
+/*font-family: 'Permanent Marker', cursive;*/
+/*font-family: 'Roboto', sans-serif;*/
+/*font-family: 'Share Tech', sans-serif;*/
+
+/*
+* GENERAL VARIABLE AND CLASS
+*/
+:root {
+    --primary-background : #262626;
+    --second-background : #ecf0f1;
+    --primary-text : #ecf0f1;
+    --second-text : #262626;
+    --yellow : #ffeb3b;
+    --red : #ff1100;
+    --blue-neon : #5AE8FD;
+    --pink-neon : #FD5AE8;
+    --green-neon : #29FCA5;
+}
+
+body {
+    background-color : var(--primary-background);
+    font-family: 'Roboto', cursive;
+}
+
+p, h1, h2, h3, h4, h5, ul, li, a, table, input, textarea {
+    color : var(--primary-text);
+}
+
+.red {
+    background-color: var(--red);
+}
+
+.green {
+    background-color: var(--green-neon);
+}
+
+/*
+* MODAL
+ */
+.modal {
+    background-color: var(--primary-background);
+}
+
+/*
+* BUTTON
+ */
+.btn {
+    color: var(--second-text);
+    background-color: var(--green-neon);
+}
+
+/*
+* NAV
+*/
+nav ,.sidenav {
+    background-color: var(--primary-background);
+}
+
+a[class=active], nav li:hover {
+    background-color : var(--green-neon) !important;
+}
+
+nav a, .sidenav a, .sidenav i {
+    color : var(--green-neon) !important;
+}
+
+a[class=active], nav a:hover {
+    color: var(--second-text) !important;
+}
+
+.sidenav-trigger {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.sidenav-trigger:hover {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: var(--second-text) !important;
+    background-color : var(--green-neon) !important;
+}
+
+.dropdown-content {
+    top: 64px !important;
+    background-color: var(--primary-background);
+}
+
+.dropdown-content li:hover {
+    background-color : var(--green-neon);
+}
+
+.dropdown-content li a:hover {
+    color: var(--second-text) !important;
+}
+
+.brand-logo {
+    color : var(--green-neon);
+}
+
+.brand-logo:hover {
+    color : var(--green-neon)  !important;
+}
+
+#logo {
+    padding: 5px;
+    padding-left: 15px;
+}
+
+.text-logo {
+    float: right;
+    margin: 0;
+}
+
+/*
+* TABLE
+ */
+table, tr, th, td {
+    border: 1px solid var(--green-neon);
+}
+
+/*
+* FORM
+*/
+label[class*=active], label[class*=required] {
+    background-color : var(--primary-background) !important;
+    color : var(--green-neon) !important;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid var(--blue-neon) !important;
+    box-shadow: 0 1px 0 0 var(--blue-neon) !important;
+}
+
+/* valid color */
+.input-field input[type=text].valid, textarea.materialize-textarea.valid, .input-field input[type=email].valid, .input-field input[type=password].valid {
+    border-bottom: 1px solid var(--green-neon) !important;
+    box-shadow: 0 1px 0 0 var(--green-neon) !important;
+}
+
+/* invalid color */
+.input-field input[type=text].invalid, textarea.materialize-textarea.invalid, .input-field input[type=email].invalid, .input-field input[type=password].invalid {
+    border-bottom: 1px solid var(--pink-neon) !important;
+    box-shadow: 0 1px 0 0 var(--pink-neon) !important;
+}
+
+/*
+* OTHER
+ */
+.head-content {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}

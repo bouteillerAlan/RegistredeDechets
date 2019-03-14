@@ -1,0 +1,48 @@
+{% extends 'admin/backhome.html.twig' %}
+
+{% block title %}Entreprises{% endblock %}
+
+{% block subcontent %}
+
+    <div class="container">
+        <div class="row">
+
+            <table class="highlight centered">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Siret</th>
+                    <th>Siren</th>
+                    <th>Récépissé</th>
+                    <th>Adresse</th>
+                    <th colspan="2"><a href="{{ path('back.entre.new') }}" class="waves-effect waves-light btn"><i class="material-icons left">account_balance</i>Ajout d'une Entreprise</a></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for data in result %}
+                    <tr>
+                        <td>{{ data.nom }}</td>
+                        <td>{{ data.siret }}</td>
+                        <td>{{ data.siren }}</td>
+                        <td>{{ data.recepisse }}</td>
+                        <td>{{ data.adresse }}</td>
+                        <td>
+                            <a href="{{ path('back.entre.edit', {id: data.id, name: data.nom}) }}" class="waves-effect waves-light btn-small green">Modifier<i class="material-icons left">domain</i></a>
+                        </td>
+                        <td>
+                            <form method="post" action="{{ path('back.entre.delete', {id: data.id, name: data.nom}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer l\'entreprise {{data.nom}}')">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete'~data.id) }}">
+                                <button class="btn waves-effect waves-light btn-small red">Supprimer<i class="material-icons left">backspace</i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil back-office{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+    {% block menu %}
+
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo">Logo</a>
+
+                <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{{ path('logout') }}"><i class="material-icons left">phonelink_lock</i>Logout</a></li>
+                    <li><a href="{{ path('back') }}"><i class="material-icons left">home</i>Accueil</a></li>
+                    <li><a href="{{ path('back.entre') }}"><i class="material-icons left">account_balance</i>Entreprise</a></li>
+                    <li><a href="{{ path('back.codedr') }}"><i class="material-icons left">leak_add</i>Code D/R</a></li>
+                    <li><a href="{{ path('back.mode') }}"><i class="material-icons left">merge_type</i>Mode de Traitement</a></li>
+                    <li><a href="{{ path('back.user') }}"><i class="material-icons left">people</i>Utilisateur</a></li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile">
+            <li><a href="{{ path('logout') }}"><i class="material-icons left">phonelink_lock</i>Logout</a></li>
+            <li><a href="{{ path('back') }}"><i class="material-icons left">home</i>Accueil</a></li>
+            <li><a href="{{ path('back.entre') }}"><i class="material-icons left">account_balance</i>Entreprise</a></li>
+            <li><a href="{{ path('back.codedr') }}"><i class="material-icons left">leak_add</i>Code D/R</a></li>
+            <li><a href="{{ path('back.mode') }}"><i class="material-icons left">merge_type</i>Mode de Traitement</a></li>
+            <li><a href="{{ path('back.user') }}"><i class="material-icons left">people</i>Utilisateur</a></li>
+        </ul>
+
+    {% endblock %}
+
+    {% block content %}
+        <div class="row">
+
+            <div class="container head-content">
+                <div class="row">
+                    <div class="col s12 center-align">
+                        <a href="{{ path('back.new') }}" class="waves-effect waves-light btn"><i class="material-icons left">book</i>Ajout d'un BSD</a>
+                        <a href="{{ path('back.entre.new') }}" class="waves-effect waves-light btn"><i class="material-icons left">account_balance</i>Ajout d'une Entreprise</a>
+                        <a href="{{ path('back.codedr.new') }}" class="waves-effect waves-light btn"><i class="material-icons left">leak_add</i>Ajout d'un Code D/R</a>
+                        <a href="{{ path('back.mode.new') }}" class="waves-effect waves-light btn"><i class="material-icons left">merge_type</i>Ajout d'un Mode de Traitement</a>
+                        <a href="{{ path('back.user.new') }}" class="waves-effect waves-light btn"><i class="material-icons left">person_add</i>Ajout d'un Utilisateur</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        {% for message in app.flashes('success') %}
+                            <div class="col s12 green flash-card">
+                                <p class="valign-wrapper">
+                                    <i class="material-icons">layers</i>{{ message }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('error') %}
+                            <div class="col s12 red flash-card">
+                                <p class="valign-wrapper">
+                                    <i class="material-icons">layers_clear</i>{{ message }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+            {% block subcontent %}
+            <div class="container-fuild">
+                <div class="row">
+
+                    <!-- TOTAL -->
+                    <div class="col s12">
+                        <h5>Nombre de BSD : {{ result.getTotalItemCount }}</h5>
+                    </div>
+
+                    <table class="highlight">
+                        <tr>
+                            <th class="center-align" colspan="6">Emetteur BSD</th>
+                            <th class="center-align" colspan="3">Installation d'entreposage, de reconditionnement ou de transformation préalable du déchet</th>
+                            <th class="center-align" colspan="4">Transporteur</th>
+                            <th class="center-align" colspan="7">Installation de traitement final</th>
+                            <th rowspan="2">Commentaire</th>
+                        </tr>
+                        <tr>
+                            <!-- EMETTEUR BSD -->
+                            <td>N° BSD</td>
+                            <td>Date Enlèvement</td>
+                            <td>Désignation du déchet</td>
+                            <td>Code nomenclature déchet</td>
+                            <td>Quantité (tonnes)</td>
+                            <td>Code D/R</td>
+
+                            <!-- ENTREPOSAGE -->
+                            <td>Nom</td>
+                            <td>Adresse</td>
+                            <td>SIRET</td>
+
+                            <!-- TRANSPORTEUR -->
+                            <td>Nom</td>
+                            <td>Adresse</td>
+                            <td>SIREN</td>
+                            <td>Récépissé préfectoral de transport</td>
+
+                            <!-- TRAITEMENT -->
+                            <td>Nom</td>
+                            <td>Adresse</td>
+                            <td>SIRET</td>
+                            <td>Mode de traitement</td>
+                            <td>Code D/R</td>
+                            <td>Date admission</td>
+                            <td>Date de traitement</td>
+                        </tr>
+
+                        {% for data in result %}
+                        <tr>
+                            <!-- EMETTEUR BSD -->
+                            <td><a href="{{ asset('file_upload/' ~ data.fichierbsd) }}" target="_blank">{{ data.idbsd }}</a></td>
+                            <td>{{ data.dateenlevement|date("m/d/Y") }}</td>
+                            <td>{{ data.designation }}</td>
+                            <td>{{ data.codenomenclature }}</td>
+                            <td>{{ data.quantite }}</td>
+                            <td>{{ data.codedr.code }}</td>
+
+                            <!-- ENTREPOSAGE -->
+                            <td>{{ data.entreposage.nom }}</td>
+                            <td>{{ data.entreposage.adresse }}</td>
+                            <td>{{ data.entreposage.siret }}</td>
+
+                            <!-- TRANSPORTEUR -->
+                            <td>{{ data.transporteur.nom }}</td>
+                            <td>{{ data.transporteur.adresse }}</td>
+                            <td>{{ data.transporteur.siren }}</td>
+                            <td>{{ data.transporteur.recepisse }}</td>
+
+                            <!-- TRAITEMENT -->
+                            <td>{{ data.entreprisetraitement.nom }}</td>
+                            <td>{{ data.entreprisetraitement.adresse }}</td>
+                            <td>{{ data.entreprisetraitement.siret }}</td>
+                            <td>{{ data.modetraitement.label }}</td>
+                            <td>{{ data.codedrtraitement.code }}</td>
+                            <td>{{ data.dateadmission|date("m/d/Y") }}</td>
+                            <td>{{ data.datetraitement|date("m/d/Y") }}</td>
+
+                            <!-- COMMENTAIRE -->
+                            <td>{{ data.commentaire }}</td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+
+                    <!-- PAGINATION -->
+                    <div class="col s12">
+                        {{ knp_pagination_render(result) }}
+                    </div>
+
+                </div>
+            </div>
+            {% endblock %}
+
+        </div>
+    {% endblock %}
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

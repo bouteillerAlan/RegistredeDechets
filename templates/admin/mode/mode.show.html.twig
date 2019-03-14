@@ -1,0 +1,44 @@
+{% extends 'admin/backhome.html.twig' %}
+
+{% block title %}Mode de traitement{% endblock %}
+
+{% block subcontent %}
+
+    <div class="container">
+        <div class="row">
+
+            <table class="highlight centered">
+                <thead>
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Label</th>
+                    <th>Commentaire</th>
+                    <th colspan="2"><a href="{{ path('back.mode.new') }}" class="waves-effect waves-light btn"><i class="material-icons left">merge_type</i>Ajout d'un Mode de Traitement</a></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for data in result %}
+                    <tr>
+                        <td>{{ data.id }}</td>
+                        <td>{{ data.label }}</td>
+                        <td>{{ data.commentaire }}</td>
+                        <td>
+                            <a href="{{ path('back.mode.edit', {id: data.id, name: data.label}) }}" class="waves-effect waves-light btn-small green">Modifier<i class="material-icons left">call_missed_outgoing</i></a>
+                        </td>
+                        <td>
+                            <form method="post" action="{{ path('back.mode.delete', {id: data.id, name: data.label}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer le mode de traitement {{data.label}}')">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete'~data.id) }}">
+                                <button class="btn waves-effect waves-light btn-small red">Supprimer<i class="material-icons left">backspace</i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}

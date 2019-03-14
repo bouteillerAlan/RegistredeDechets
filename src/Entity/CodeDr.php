@@ -31,11 +31,6 @@ class CodeDr
      */
     private $commentaire;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Emetteur", inversedBy="code_dr")
-     */
-    private $emetteur;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -77,15 +72,4 @@ class CodeDr
         return $this;
     }
 
-    public function getEmetteur(): ?Emetteur
-    {
-        return $this->emetteur;
-    }
-
-    public function setEmetteur(?Emetteur $emetteur): self
-    {
-        $this->emetteur = $emetteur;
-
-        return $this;
-    }
 }

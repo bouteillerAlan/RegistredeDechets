@@ -3,14 +3,34 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
-        <!-- Compiled and minified CSS -->
+        <!-- @materialize -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- @material icon -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- @css perso -->
+        <link href="../css/style.css" rel="stylesheet">
+        <!-- @mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
-        <!-- Compiled and minified JavaScript -->
+        <!-- @materialize -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                let sidenav = document.querySelectorAll('.sidenav');
+                let instancesSidenav = M.Sidenav.init(sidenav);
+                let datepicker = document.querySelectorAll('.datepicker');
+                let instancesDatepicker = M.Datepicker.init(datepicker, {
+                    format: 'dd/mm/yyyy'
+                });
+                let selector = document.querySelectorAll('select');
+                let instancesSelector = M.FormSelect.init(selector);
+            });
+        </script>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
