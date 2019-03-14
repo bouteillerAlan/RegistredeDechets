@@ -10,7 +10,7 @@
 
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo">Logo</a>
+                <a href="#!" class="brand-logo"><img src="../img/logo.png"></a>
 
                 <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
@@ -73,97 +73,141 @@
             </div>
 
             {% block subcontent %}
-            <div class="container-fuild">
-                <div class="row">
+                <div class="container-fluid">
+                    <div class="row">
 
-                    <!-- TOTAL -->
-                    <div class="col s12">
-                        <h5>Nombre de BSD : {{ result.getTotalItemCount }}</h5>
+                        <!-- INFORMATIONS -->
+                        <div class="col s12 headList">
+                            <a class="btn tooltipped" data-position="top" data-tooltip="BSD Total"><i class="material-icons left">book</i>{{ result.getTotalItemCount }}</a>
+                            <a class="btn tooltipped" data-position="top" data-tooltip="Entreprise Total"><i class="material-icons left">account_balance</i>{{ totalEntreprise|number_format }}</a>
+                            <a class="btn tooltipped" data-position="top" data-tooltip="Code D/R Total"><i class="material-icons left">leak_add</i>{{ totalCode|number_format }}</a>
+                            <a class="btn tooltipped" data-position="top" data-tooltip="Mode Total"><i class="material-icons left">merge_type</i>{{ totalMode|number_format }}</a>
+                            <a class="btn tooltipped" data-position="top" data-tooltip="Utilisateur Total"><i class="material-icons left">people</i>{{ totalUser|number_format }}</a>
+
+                            {{ form_start(formSearch) }}
+
+                                <div class="input-field inline">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Rechercher
+                                        <i class="material-icons right">search</i>
+                                    </button>
+                                </div>
+
+                                <div class="col s1">{{ form_row(formSearch.codeBsd) }}</div>
+                                <div class="col s1">{{ form_row(formSearch.entreprise) }}</div>
+                                <div class="col s1">{{ form_row(formSearch.dateMin) }}</div>
+                                <div class="col s1">{{ form_row(formSearch.dateMax) }}</div>
+
+                            {{ form_end(formSearch) }}
+
+                        </div>
+
+                        <div class="col s12">
+
+                            <ul class="collapsible popout">
+
+                                {% for data in result %}
+                                    <li>
+                                        <div class="collapsible-header"><i class="material-icons">receipt</i>
+                                            <span class="new badge" data-badge-caption="">{{ data.idbsd }}</span>
+                                            <span class="new badge" data-badge-caption="">{{ data.dateenlevement }}</span>
+                                            <span class="new badge" data-badge-caption="">{{ data.designation }}</span>
+                                            <span class="new badge" data-badge-caption="">{{ data.codenomenclature }}</span>
+                                            <span class="new badge" data-badge-caption="">{{ data.quantite }}</span>
+                                            <span class="new badge" data-badge-caption="">{{ data.codedr.code }}</span>
+                                        </div>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+
+                                                <div class="col s8 offset-s2 divider green"></div>
+
+                                                <div class="col s12">
+                                                    <!-- EMETTEUR BSD -->
+                                                    <h4>Emetteur BSD <a href="{{ asset('file_upload/' ~ data.fichierbsd) }}" target="_blank"><i class="material-icons">attach_file</i></a></h4>
+                                                    <ul>
+                                                        <li>Date Enlèvement : {{ data.dateenlevement }}</li>
+                                                        <li>Désignation du déchet : {{ data.designation }}</li>
+                                                        <li>Code nomenclature déchet : {{ data.codenomenclature }}</li>
+                                                        <li>Quantité (tonnes) : {{ data.quantite }}</li>
+                                                        <li>Code D/R : {{ data.codedr.code }}</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col s12">
+                                                    <!-- ENTREPOSAGE -->
+                                                    <h4>Installation d'entreposage, de reconditionnement ou de transformation préalable du déchet</h4>
+                                                    <ul>
+                                                        <li>Nom : {{ data.entreposage.nom }}</li>
+                                                        <li>Adresse : {{ data.entreposage.adresse }}</li>
+                                                        <li>SIRET : {{ data.entreposage.siret }}</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col s12">
+                                                    <!-- TRANSPORTEUR -->
+                                                    <h4>Transporteur</h4>
+                                                    <ul>
+                                                        <li>Nom : {{ data.transporteur.nom }}</li>
+                                                        <li>Adresse : {{ data.transporteur.adresse }}</li>
+                                                        <li>SIREN : {{ data.transporteur.siren }}</li>
+                                                        <li>Récépissé préfectoral de transport : {{ data.transporteur.recepisse }}</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col s12">
+                                                    <!-- TRAITEMENT -->
+                                                    <h4>Installation de traitement final</h4>
+                                                    <ul>
+                                                        <li>Nom : {{ data.entreprisetraitement.nom }}</li>
+                                                        <li>Adresse : {{ data.entreprisetraitement.adresse }}</li>
+                                                        <li>SIRET : {{ data.entreprisetraitement.siret }}</li>
+                                                        <li>Mode de traitement : {{ data.modetraitement.label }}</li>
+                                                        <li>Code D/R : {{ data.codedrtraitement.code }}</li>
+                                                        <li>Date admission : {{ data.dateadmission }}</li>
+                                                        <li>Date de traitement : {{ data.datetraitement }}</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col s12">
+                                                    <!-- COMMENTAIRE -->
+                                                    <h4>Commentaire :</h4>
+                                                    <p>
+                                                        {{ data.commentaire }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="col s8 offset-s2 divider green"></div>
+
+                                                <!-- OPTIONS -->
+                                                <div class="col s12">
+                                                    <div class="col">
+                                                        <a href="{{ path('back.edit', {id : data.id}) }}" class="waves-effect waves-light btn"><i class="material-icons left">autorenew</i>Modification</a>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <form method="post" action="{{ path('back.delete', {id: data.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer le BSR {{data.idbsd}}')">
+                                                            <input type="hidden" name="_method" value="delete">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete'~data.id) }}">
+                                                            <button class="btn waves-effect waves-light red"><i class="material-icons left">backspace</i>Supprimer</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+
+                        </div>
+
+                        <!-- PAGINATION -->
+                        <div class="col s12 center-align">
+                            {{ knp_pagination_render(result) }}
+                        </div>
+
                     </div>
-
-                    <table class="highlight">
-                        <tr>
-                            <th class="center-align" colspan="6">Emetteur BSD</th>
-                            <th class="center-align" colspan="3">Installation d'entreposage, de reconditionnement ou de transformation préalable du déchet</th>
-                            <th class="center-align" colspan="4">Transporteur</th>
-                            <th class="center-align" colspan="7">Installation de traitement final</th>
-                            <th rowspan="2">Commentaire</th>
-                        </tr>
-                        <tr>
-                            <!-- EMETTEUR BSD -->
-                            <td>N° BSD</td>
-                            <td>Date Enlèvement</td>
-                            <td>Désignation du déchet</td>
-                            <td>Code nomenclature déchet</td>
-                            <td>Quantité (tonnes)</td>
-                            <td>Code D/R</td>
-
-                            <!-- ENTREPOSAGE -->
-                            <td>Nom</td>
-                            <td>Adresse</td>
-                            <td>SIRET</td>
-
-                            <!-- TRANSPORTEUR -->
-                            <td>Nom</td>
-                            <td>Adresse</td>
-                            <td>SIREN</td>
-                            <td>Récépissé préfectoral de transport</td>
-
-                            <!-- TRAITEMENT -->
-                            <td>Nom</td>
-                            <td>Adresse</td>
-                            <td>SIRET</td>
-                            <td>Mode de traitement</td>
-                            <td>Code D/R</td>
-                            <td>Date admission</td>
-                            <td>Date de traitement</td>
-                        </tr>
-
-                        {% for data in result %}
-                        <tr>
-                            <!-- EMETTEUR BSD -->
-                            <td><a href="{{ asset('file_upload/' ~ data.fichierbsd) }}" target="_blank">{{ data.idbsd }}</a></td>
-                            <td>{{ data.dateenlevement|date("m/d/Y") }}</td>
-                            <td>{{ data.designation }}</td>
-                            <td>{{ data.codenomenclature }}</td>
-                            <td>{{ data.quantite }}</td>
-                            <td>{{ data.codedr.code }}</td>
-
-                            <!-- ENTREPOSAGE -->
-                            <td>{{ data.entreposage.nom }}</td>
-                            <td>{{ data.entreposage.adresse }}</td>
-                            <td>{{ data.entreposage.siret }}</td>
-
-                            <!-- TRANSPORTEUR -->
-                            <td>{{ data.transporteur.nom }}</td>
-                            <td>{{ data.transporteur.adresse }}</td>
-                            <td>{{ data.transporteur.siren }}</td>
-                            <td>{{ data.transporteur.recepisse }}</td>
-
-                            <!-- TRAITEMENT -->
-                            <td>{{ data.entreprisetraitement.nom }}</td>
-                            <td>{{ data.entreprisetraitement.adresse }}</td>
-                            <td>{{ data.entreprisetraitement.siret }}</td>
-                            <td>{{ data.modetraitement.label }}</td>
-                            <td>{{ data.codedrtraitement.code }}</td>
-                            <td>{{ data.dateadmission|date("m/d/Y") }}</td>
-                            <td>{{ data.datetraitement|date("m/d/Y") }}</td>
-
-                            <!-- COMMENTAIRE -->
-                            <td>{{ data.commentaire }}</td>
-
-                        </tr>
-                        {% endfor %}
-
-                    </table>
-
-                    <!-- PAGINATION -->
-                    <div class="col s12">
-                        {{ knp_pagination_render(result) }}
-                    </div>
-
                 </div>
-            </div>
             {% endblock %}
 
         </div>

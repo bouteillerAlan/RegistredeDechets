@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\CodeDr;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,22 +20,18 @@ class CodeDrRepository extends ServiceEntityRepository
         parent::__construct($registry, CodeDr::class);
     }
 
-    // /**
-    //  * @return CodeDr[] Returns an array of CodeDr objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return mixed
+     */
+    public function findTotal()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('COUNT(c)')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?CodeDr

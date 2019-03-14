@@ -78,7 +78,7 @@ class Emetteur
     private $entreprise_traitement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Codedr")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CodeDr")
      * @ORM\JoinColumn(nullable=false)
      */
     private $code_dr_traitement;
@@ -109,9 +109,22 @@ class Emetteur
         return $d;
     }
 
-    public function getDateEnlevement(): ?\DateTime
+    /**
+     * @param $date
+     * @param $format
+     * @return null
+     */
+    private function dateToString ($date, $format) {
+        if ($date === null) {
+            return null;
+        } else {
+            return $date->format($format);
+        }
+    }
+
+    public function getDateEnlevement(): ?string
     {
-        return $this->date_enlevement;
+        return $this->dateToString($this->date_enlevement, 'd/m/Y');
     }
 
     public function setDateEnlevement(string $date_enlevement): self
@@ -121,9 +134,9 @@ class Emetteur
         return $this;
     }
 
-    public function getDateAdmission(): ?\DateTime
+    public function getDateAdmission(): ?string
     {
-        return $this->date_admission;
+        return $this->dateToString($this->date_admission, 'd/m/Y');
     }
 
     public function setDateAdmission(string $date_admission): self
@@ -133,9 +146,9 @@ class Emetteur
         return $this;
     }
 
-    public function getDateTraitement(): ?\DateTime
+    public function getDateTraitement(): ?string
     {
-        return $this->date_traitement;
+        return $this->dateToString($this->date_traitement, 'd/m/Y');
     }
 
     public function setDateTraitement(string $date_traitement): self
@@ -198,12 +211,12 @@ class Emetteur
         return $this;
     }
 
-    public function getFichierBsd(): ?string
+    public function getFichierBsd()
     {
         return $this->fichier_bsd;
     }
 
-    public function setFichierBsd(string $fichier_bsd): self
+    public function setFichierBsd($fichier_bsd): self
     {
         $this->fichier_bsd = $fichier_bsd;
 

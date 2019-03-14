@@ -28,12 +28,64 @@ p, h1, h2, h3, h4, h5, ul, li, a, table, input, textarea {
     color : var(--primary-text);
 }
 
-.red {
-    background-color: var(--red);
+.green {
+    background-color: var(--green-neon) !important;
 }
 
-.green {
+/*
+* DIVIDER
+ */
+.divider {
+    margin-bottom: 15px;
+}
+
+/*
+* BADGE
+ */
+.collapsible span.badge {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+span.badge.new {
+    color: #29fca5;
+    background-color: #262626;
+    font-size: 0.9rem;
+}
+
+/*
+* PAGINATION
+ */
+ul[class=pagination] li[class=active] {
+    color: var(--second-text);
     background-color: var(--green-neon);
+}
+
+ul[class=pagination] li[class=active] a {
+    color: var(--second-text);
+}
+
+ul[class=pagination] li[class=disabled] a {
+    color: #383838;
+}
+
+ul[class=pagination] li[class=waves-effect] a {
+    color: var(--green-neon);
+}
+
+/*
+* COLLAPSIBLE
+ */
+ul[class='collapsible popout'] li div {
+    background-color: #313131;
+}
+
+div[class=collapsible-body] {
+    border-bottom-color: transparent;
+}
+
+div[class=collapsible-header] {
+    border-bottom-color: transparent;
 }
 
 /*
@@ -152,4 +204,30 @@ label[class*=active], label[class*=required] {
 .head-content {
     padding-top: 30px;
     padding-bottom: 30px;
+}
+
+.titreForm {
+    display: flex;
+}
+
+.barre:after {
+    content: '';
+    width: 100%;
+    margin-left: 10px;
+    border-bottom: var(--green-neon) solid;
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.titreBarre {
+    width: -webkit-fill-available;
+}
+
+.titreText {
+    max-width: max-content;
+    width: 100%;
+}
+
+.headList {
+    padding-left: 35px !important;
 }

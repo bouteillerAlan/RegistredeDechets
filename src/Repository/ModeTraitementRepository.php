@@ -19,6 +19,18 @@ class ModeTraitementRepository extends ServiceEntityRepository
         parent::__construct($registry, ModeTraitement::class);
     }
 
+    /**
+     * @return mixed
+     */
+    public function findTotal()
+    {
+        return $this->createQueryBuilder('m')
+            ->select('COUNT(m)')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return ModeTraitement[] Returns an array of ModeTraitement objects
     //  */

@@ -26,9 +26,7 @@ class EmetteurType extends AbstractType
             ->add('commentaire', TextType::class, [
                 'required' => false
             ])
-            ->add('fichier_bsd', FileType::class, [
-                'required' => true
-            ])
+            ->add('fichier_bsd', FileType::class)
 
             //mode traitement
             ->add('mode_traitement', EntityType::class, [

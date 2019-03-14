@@ -1,0 +1,14 @@
+Et si tu peux, surtout, passe une certif!
+--------------------------
+Si tu as du temps fait un tuto sur Django/python
+Tu vas voir l'accès au sgbd via une api
+https://l.facebook.com/l.php?u=https%3A%2F%2Fdocs.djangoproject.com%2Fen%2F2.1%2Fintro%2Ftutorial01%2F%3Ffbclid%3DIwAR0jE4umeRVXgKbq7_7QPc0u1hMabdZdC-db7F3TULymgJkK3Ta7RsL7boQ&h=AT1c7cOf3jUEZqxO1-pl2Qofnl2-7iQhnoUmIIbG-RxmzN6tQn3IAJ_cauJMpKWH_7YB9QHGgUA9-S601M0g5JrVFMJUpvYgLVu-6mhjugAqsLCf_uHcK4YiRaLeMaHlTKl9sWXTemiLTA9YaorUog
+du coup tu as une console python et tu peux interoger ton modèle en console
+D'ailleurs c'est jamais évident lorsque tu sors du contexte
+Parce que c'est une base Firebird
+et que l'on bosse avec des uuid
+Et les drivers django ne sont pas full compatible
+je doit donc fork les repos pour adapter à notre besoin métier
+Oui puis tu peux faire ton site avec Django
+Tu auras une interface d'admin entièrement automatisée
+moi par exemple je suis a reflechir si je ne ferais pas le miens en Dart Angular pour m'entrainer et monter en compétences
